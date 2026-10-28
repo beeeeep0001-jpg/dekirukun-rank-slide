@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>キーワード順位と出現回数</title>
+<style>
+html,body{margin:0;height:100%;background:#222;font-family:sans-serif;overflow:hidden}
+.s{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}
+.s.on{display:flex}.s img{max-width:100%;max-height:100%;box-shadow:0 10px 30px rgba(0,0,0,.5);background:#fff}
+.b{position:fixed;top:50%;transform:translateY(-50%);width:56px;height:56px;border-radius:50%;border:0;background:rgba(255,255,255,.75);font-size:28px;cursor:pointer;z-index:2}
+#p{left:16px}#n{right:16px}#c{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#fff;background:rgba(0,0,0,.5);padding:4px 12px;border-radius:12px;font-size:14px}
+</style></head><body>
+<div class="s on"><img src="img/1.jpg" alt="キーワードによる順位計測 9/1〜9/15"></div>
+<div class="s"><img src="img/2.jpg" alt="キーワードによる順位計測 9/16〜9/30"></div>
+<div class="s"><img src="img/3.jpg" alt="女子会の月別出現回数"></div>
+<button class="b" id="p">&#8249;</button><button class="b" id="n">&#8250;</button><div id="c"></div>
+<script>
+const s=[...document.querySelectorAll('.s')];let i=0;
+function go(k){i=(k+s.length)%s.length;s.forEach((e,j)=>e.classList.toggle('on',j===i));c.textContent=(i+1)+' / '+s.length}
+p.onclick=()=>go(i-1);n.onclick=()=>go(i+1);
+addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(i+1);if(e.key==='ArrowLeft')go(i-1)});
+let x=0;addEventListener('touchstart',e=>x=e.touches[0].clientX);addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-x;if(Math.abs(d)>40)go(i+(d<0?1:-1))});
+go(0);
+</script></body></html>
